@@ -36,6 +36,24 @@ The Porkbun Dynamic DNS Updater Docker Container offers a streamlined and secure
 
 Deploying the Porkbun Dynamic DNS Updater is a breeze. Pull the Docker image from the registry, set your environment variables, and you're good to go.
 
+```
+---
+version: '3'
+services:
+  porkbun-ddns:
+    image: griffinodow/porkbun-ddns:latest
+    container_name: porkbun-ddns-container
+    environment:
+      - PORKBUN_API_KEY=your_api_key
+      - PORKBUN_SECRET_KEY=your_secret_key
+      - DOMAIN=your_domain
+    restart: unless-stopped
+```
+
 ### Community and Contributions
 
 This project is open to community contributions. Feel free to report bugs, offer suggestions, or submit pull requests to improve the Docker container.
+
+```
+
+```
