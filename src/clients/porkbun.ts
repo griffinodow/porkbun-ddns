@@ -30,10 +30,6 @@ export const getDomainRecords = async (
   domain: string
 ): Promise<Array<Record>> => {
   if (!porkbunApiKey || !porkbunApiSecret) {
-    console.error({
-      porkbunApiKey,
-      porkbunApiSecret,
-    });
     throw new Error("PORKBUN_NOT_SET");
   }
   const response = await fetch(
