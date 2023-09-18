@@ -22,13 +22,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Configure Git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
       - name: Increment package version
         run: npm version patch -m "Increment version [skip ci]"
-
-      - name: Set Git user
-        run: |
-          git config user.name "griffinodow"
-          git config user.email "griffin@griffindow.com"
 
       - name: Push version increment
         run: git push
@@ -44,4 +44,4 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: Push Docker image
-        run: docker push griffinodow/porkbun-ddns:${{ env.PKG_VERSION }}
+        run: docker push your-dockerhub-username/porkbun-ddns:${{ env.PKG_VERSION }}
