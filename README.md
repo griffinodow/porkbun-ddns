@@ -45,7 +45,7 @@ services:
     container_name: porkbun-ddns-container
     environment:
       - PORKBUN_API_KEY=your_api_key
-      - PORKBUN_SECRET_KEY=your_secret_key
+      - PORKBUN_API_SECRET=your_secret_key
       - DOMAIN=your_domain
     restart: unless-stopped
 ```

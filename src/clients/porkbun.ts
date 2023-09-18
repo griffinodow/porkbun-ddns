@@ -9,6 +9,9 @@ import { validateResponse } from "../utils/fetch.js";
 import { Record } from "../utils/interfaces.js";
 
 export const updateRecord = async (content: string, ttl: string) => {
+  if (!content || !ttl) {
+    throw new Error("CONTENT_OR_TTL_NOT_SET");
+  }
   const response = await fetch(
     `https://porkbun.com/api/json/v3/dns/editByNameType/${domain}/A/`,
     {
@@ -26,11 +29,12 @@ export const updateRecord = async (content: string, ttl: string) => {
   return validateResponse(response);
 };
 
-export const getDomainRecords = async (
-  domain: string
-): Promise<Array<Record>> => {
+export const getDomainRecords = async (): Promise<Array<Record>> => {
   if (!porkbunApiKey || !porkbunApiSecret) {
     throw new Error("PORKBUN_NOT_SET");
+  }
+  if (!domain) {
+    throw new Error("DOMAIN_NOT_SET");
   }
   const response = await fetch(
     `https://porkbun.com/api/json/v3/dns/retrieve/${domain}`,
