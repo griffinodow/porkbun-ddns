@@ -53,7 +53,3 @@ services:
 ### Community and Contributions
 
 This project is open to community contributions. Feel free to report bugs, offer suggestions, or submit pull requests to improve the Docker container.
-
-```
-
-```
