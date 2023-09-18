@@ -19,7 +19,10 @@ jobs:
           node-version: "18"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci --production
+
+      - name: Build project
+        run: npm run build
 
       - name: Build Docker image
         run: docker build -t griffinodow/porkbun-ddns:latest .
