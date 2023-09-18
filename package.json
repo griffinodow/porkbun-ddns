@@ -1,0 +1,22 @@
+{
+  "name": "porkbun-ddns",
+  "version": "1.0.0",
+  "description": "A dynamic DNS updater for Porkbun.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "public-ip": "^6.0.1"
+  }
+}

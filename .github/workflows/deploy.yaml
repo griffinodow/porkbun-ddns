@@ -1,0 +1,45 @@
+name: Build and Publish Docker
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-publish:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Increment package version
+        run: npm version patch -m "Increment version [skip ci]"
+
+      - name: Push version increment
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git push
+
+      # Read the updated package version into an environment variable for later use
+      - name: Read package.json version
+        run: echo "PKG_VERSION=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+
+      - name: Build Docker image
+        run: docker build -t griffinodow/porkbun-ddns:${{ env.PKG_VERSION }} .
+
+      - name: Log into Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Push Docker image
+        run: docker push griffinodow/porkbun-ddns:${{ env.PKG_VERSION }}
