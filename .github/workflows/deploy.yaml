@@ -25,11 +25,13 @@ jobs:
       - name: Increment package version
         run: npm version patch -m "Increment version [skip ci]"
 
-      - name: Push version increment
+      - name: Set Git user
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git push
+          git config user.name "griffinodow"
+          git config user.email "griffin@griffindow.com"
+
+      - name: Push version increment
+        run: git push
 
       # Read the updated package version into an environment variable for later use
       - name: Read package.json version
