@@ -1,7 +1,7 @@
 import { publicIpv4 } from "public-ip";
 import { getDomainRecords, updateRecord } from "./clients/porkbun.js";
 import { Record } from "./utils/interfaces.js";
-import { domain } from "./utils/constants.js";
+import { domain, porkbunApiKey, porkbunApiSecret } from "./utils/constants.js";
 
 const cache = new Map();
 
@@ -9,7 +9,7 @@ const getCurrentIpv4 = async () => publicIpv4();
 
 const getPorkbunIpv4 = async (): Promise<string> => {
   if (!domain) throw new Error("DOMAIN_NOT_PROVIDED");
-  const records: Record[] = await getDomainRecords(domain);
+  const records: Record[] = await getDomainRecords();
   const record = records.find(
     (record) => record.name === domain && record.type === "A"
   );
@@ -32,6 +32,12 @@ const updateRecordIfNecessary = async () => {
 
 (async () => {
   // Initialize
+  if (!porkbunApiKey || !porkbunApiSecret) {
+    throw new Error("PORKBUN_NOT_SET");
+  }
+  if (!domain) {
+    throw new Error("DOMAIN_NOT_SET");
+  }
   const porkbunIpv4 = await getPorkbunIpv4();
   cache.set("porkbun", porkbunIpv4);
   console.log(`Updater initialized: ${cache.get("porkbun")}`);

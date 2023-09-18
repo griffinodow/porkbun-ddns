@@ -30,12 +30,6 @@ export const updateRecord = async (content: string, ttl: string) => {
 };
 
 export const getDomainRecords = async (): Promise<Array<Record>> => {
-  if (!porkbunApiKey || !porkbunApiSecret) {
-    throw new Error("PORKBUN_NOT_SET");
-  }
-  if (!domain) {
-    throw new Error("DOMAIN_NOT_SET");
-  }
   const response = await fetch(
     `https://porkbun.com/api/json/v3/dns/retrieve/${domain}`,
     {
