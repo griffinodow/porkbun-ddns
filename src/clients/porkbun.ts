@@ -29,7 +29,7 @@ export const updateRecord = async (content: string, ttl: string) => {
 export const getDomainRecords = async (
   domain: string
 ): Promise<Array<Record>> => {
-  if (!porkbunApiSecret || !porkbunApiKey) {
+  if (typeof porkbunApiKey !== "string") {
     console.error({
       porkbunApiKey,
     });
